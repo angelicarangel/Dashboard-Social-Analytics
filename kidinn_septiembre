@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Social Media - Septiembre 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+    }
+    .metric-card {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen pb-12">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-0.5 rounded-full">Reporte Mensual</span>
+          <span class="text-xs text-slate-500 font-medium"><i class="fa-regular fa-calendar me-1"></i>Septiembre de 2026</span>
+        </div>
+        <h1 class="text-2xl font-bold text-slate-900 mt-1">Métricas de Redes Sociales</h1>
+      </div>
+
+      <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 self-start md:self-auto">
+        <button onclick="filterPlatform('all')" id="btn-all" class="filter-btn active-btn px-4 py-2 text-sm font-medium rounded-lg transition-all bg-white text-slate-900 shadow-sm">
+          <i class="fa-solid fa-layer-group me-1.5 text-slate-500"></i>Todas
+        </button>
+        <button onclick="filterPlatform('instagram')" id="btn-instagram" class="filter-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+          <i class="fa-brands fa-instagram me-1.5 text-pink-600"></i>Instagram
+        </button>
+        <button onclick="filterPlatform('facebook')" id="btn-facebook" class="filter-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+          <i class="fa-brands fa-facebook me-1.5 text-blue-600"></i>Facebook
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 text-white shadow-md">
+        <p class="text-xs font-medium text-purple-100 uppercase tracking-wider">Total Audiencia Consolidada</p>
+        <div class="flex items-baseline gap-2 mt-2">
+          <span class="text-3xl font-extrabold" id="total-followers">162</span>
+          <span class="text-xs text-purple-200">Seguidores en total</span>
+        </div>
+        <p class="text-xs text-purple-200 mt-3"><i class="fa-solid fa-circle-info me-1"></i>Suma de Instagram (155) y Facebook (7)</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Visualizaciones Totales</p>
+        <div class="flex items-baseline gap-2 mt-2">
+          <span class="text-3xl font-extrabold text-slate-900">7,884</span>
+          <span class="text-xs text-emerald-600 font-medium"><i class="fa-solid fa-arrow-up me-0.5"></i>Rendimiento Alto</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-3"><i class="fa-solid fa-chart-line me-1"></i>Instagram: 7,346 | Facebook: 538</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Periodo Seleccionado</p>
+        <div class="flex items-center gap-2 mt-2">
+          <span class="text-2xl font-bold text-slate-900">1 sept - 30 sept</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-3"><i class="fa-regular fa-clock me-1"></i>Año 2026 • Datos verificados</p>
+      </div>
+    </section>
+
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <span>Tarjetas de Rendimiento</span>
+        <span id="active-filter-badge" class="text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-600">Todas las plataformas</span>
+      </h2>
+      <span class="text-xs text-slate-400" id="card-count">Mostrando 10 métricas</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="metrics-grid">
+
+      <!-- ================= INSTAGRAM METRICS ================= -->
+
+      <!-- Instagram: Seguidores -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="instagram">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-pink-50 text-pink-700 mb-1">
+              <i class="fa-brands fa-instagram me-1"></i> Instagram
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Seguidores</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-rose-50 text-rose-600">
+            <i class="fa-solid fa-arrow-down me-1"></i> 11.4%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">155</div>
+        <p class="text-xs text-slate-400">Seguidores de Instagram</p>
+      </div>
+
+      <!-- Instagram: Visitas al perfil -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="instagram">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-pink-50 text-pink-700 mb-1">
+              <i class="fa-brands fa-instagram me-1"></i> Instagram
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Visitas al perfil</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-rose-50 text-rose-600">
+            <i class="fa-solid fa-arrow-down me-1"></i> 12.6%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">999</div>
+        <p class="text-xs text-slate-400">Visitas al perfil de Instagram</p>
+      </div>
+
+      <!-- Instagram: Clics en el enlace -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="instagram">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-pink-50 text-pink-700 mb-1">
+              <i class="fa-brands fa-instagram me-1"></i> Instagram
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Clics en el enlace</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-emerald-50 text-emerald-600">
+            <i class="fa-solid fa-arrow-up me-1"></i> 100%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">4</div>
+        <p class="text-xs text-slate-400">Clics en el enlace de Instagram</p>
+      </div>
+
+      <!-- Instagram: Interacciones con el contenido -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="instagram">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-pink-50 text-pink-700 mb-1">
+              <i class="fa-brands fa-instagram me-1"></i> Instagram
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Interacciones</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-emerald-50 text-emerald-600">
+            <i class="fa-solid fa-arrow-up me-1"></i> 228.6%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">23</div>
+        <p class="text-xs text-slate-400">Interacciones con el contenido</p>
+      </div>
+
+      <!-- Instagram: Alcance -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="instagram">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-pink-50 text-pink-700 mb-1">
+              <i class="fa-brands fa-instagram me-1"></i> Instagram
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Alcance</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-emerald-50 text-emerald-600">
+            <i class="fa-solid fa-arrow-up me-1"></i> 243.2%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">1,328</div>
+        <p class="text-xs text-slate-400">Alcance total de Instagram</p>
+      </div>
+
+      <!-- Instagram: Visualizaciones -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="instagram">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-pink-50 text-pink-700 mb-1">
+              <i class="fa-brands fa-instagram me-1"></i> Instagram
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Visualizaciones</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-emerald-50 text-emerald-600">
+            <i class="fa-solid fa-arrow-up me-1"></i> 200.3%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">7,346</div>
+        <p class="text-xs text-slate-400">Visualizaciones en Instagram</p>
+      </div>
+
+
+      <!-- ================= FACEBOOK METRICS ================= -->
+
+      <!-- Facebook: Seguidores -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="facebook">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 mb-1">
+              <i class="fa-brands fa-facebook me-1"></i> Facebook
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Seguidores</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-emerald-50 text-emerald-600">
+            <i class="fa-solid fa-arrow-up me-1"></i> 16.7%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">7</div>
+        <p class="text-xs text-slate-400">Seguidores de Facebook</p>
+      </div>
+
+      <!-- Facebook: Visitas -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="facebook">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 mb-1">
+              <i class="fa-brands fa-facebook me-1"></i> Facebook
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Visitas</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-rose-50 text-rose-600">
+            <i class="fa-solid fa-arrow-down me-1"></i> 12.3%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">214</div>
+        <p class="text-xs text-slate-400">Visitas en Facebook</p>
+      </div>
+
+      <!-- Facebook: Espectadores -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="facebook">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 mb-1">
+              <i class="fa-brands fa-facebook me-1"></i> Facebook
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Espectadores</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-emerald-50 text-emerald-600">
+            <i class="fa-solid fa-arrow-up me-1"></i> 243.6%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">134</div>
+        <p class="text-xs text-slate-400">Espectadores en Facebook</p>
+      </div>
+
+      <!-- Facebook: Visualizaciones -->
+      <div class="metric-card bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden" data-platform="facebook">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 mb-1">
+              <i class="fa-brands fa-facebook me-1"></i> Facebook
+            </span>
+            <h3 class="text-sm font-semibold text-slate-600">Visualizaciones</h3>
+          </div>
+          <span class="inline-flex items-center text-xs font-bold px-2 py-1 rounded-full bg-emerald-50 text-emerald-600">
+            <i class="fa-solid fa-arrow-up me-1"></i> 46.2%
+          </span>
+        </div>
+        <div class="text-3xl font-extrabold text-slate-900 mb-3">538</div>
+        <p class="text-xs text-slate-400">Visualizaciones en Facebook</p>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function filterPlatform(platform) {
+      const cards = document.querySelectorAll('.metric-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+      const badge = document.getElementById('active-filter-badge');
+      const countLabel = document.getElementById('card-count');
+
+      // Update button visual states
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-white', 'text-slate-900', 'shadow-sm', 'active-btn');
+        btn.classList.add('text-slate-600');
+      });
+
+      const selectedBtn = document.getElementById('btn-' + platform);
+      if (selectedBtn) {
+        selectedBtn.classList.add('bg-white', 'text-slate-900', 'shadow-sm', 'active-btn');
+        selectedBtn.classList.remove('text-slate-600');
+      }
+
+      // Filter card visibility
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const cardPlatform = card.getAttribute('data-platform');
+        if (platform === 'all' || cardPlatform === platform) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Update badge and count labels
+      if (platform === 'all') {
+        badge.textContent = 'Todas las plataformas';
+      } else if (platform === 'instagram') {
+        badge.textContent = 'Instagram';
+      } else if (platform === 'facebook') {
+        badge.textContent = 'Facebook';
+      }
+
+      countLabel.textContent = `Mostrando ${visibleCount} métricas`;
+    }
+  </script>
+</body>
+</html>
